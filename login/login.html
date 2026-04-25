@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - BarberQueue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('../background/background.png') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      background: #2c2c2c;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      cursor: pointer;
+      color: #bbb;
+      font-weight: 500;
+    }
+
+    .tab.active {
+      background: #8e44ad;
+      color: #fff;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.95rem;
+      background: #f3f3f3;
+      color: #333;
+    }
+
+    button {
+      background: linear-gradient(to right, #8e44ad, #9b59b6);
+      border: none;
+      padding: 12px;
+      color: #fff;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #9b59b6, #8e44ad);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      margin-top: 25px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to BarberQueue</h2>
+
+    <div class="tabs">
+      <div class="tab" id="barberTab" onclick="switchTab('barber')">Barber</div>
+      <div class="tab active" id="customerTab" onclick="switchTab('customer')">Customer</div>
+    </div>
+
+    <form id="barberForm" class="hidden">
+      <input type="email" placeholder="Barber Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login as Barber</button>
+    </form>
+
+    <form id="customerForm">
+      <input type="text" id="customerName" placeholder="Your Name" required>
+      <button type="submit">Join Queue</button>
+    </form>
+
+    <div class="footer">© 2025 BarberQueue</div>
+  </div>
+
+  <script>
+    const barberTab = document.getElementById('barberTab');
+    const customerTab = document.getElementById('customerTab');
+    const barberForm = document.getElementById('barberForm');
+    const customerForm = document.getElementById('customerForm');
+
+    function switchTab(tab) {
+      if (tab === 'barber') {
+        barberTab.classList.add('active');
+        customerTab.classList.remove('active');
+        barberForm.classList.remove('hidden');
+        customerForm.classList.add('hidden');
+      } else {
+        customerTab.classList.add('active');
+        barberTab.classList.remove('active');
+        customerForm.classList.remove('hidden');
+        barberForm.classList.add('hidden');
+      }
+    }
+
+    barberForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      window.location.href = "../barber_dashboard.html";
+    });
+
+    customerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById("customerName").value;
+      const position = Math.floor(Math.random() * 5) + 1;
+      window.location.href = `../queue_status.html?name=${encodeURIComponent(name)}&pos=${position}`;
+    });
+
+    window.onload = () => {
+      switchTab('customer');
+    };
+  </script>
+</body>
+</html>

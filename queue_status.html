@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Queue Status - Barber Queue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { font-size: 16px; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('background/queue_page_back.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+      padding: 1.25rem;
+    }
+
+    .status-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      max-width: 28rem;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      color: #f8f8ff;
+    }
+
+    .info {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+      color: #e0dfff;
+    }
+
+    .info strong {
+      color: #ffeb3b;
+      font-weight: 600;
+    }
+
+    .timer {
+      margin-top: 1.8rem;
+      font-size: 1.5rem;
+      color: #ffeb3b;
+      font-weight: 700;
+    }
+
+    button {
+      margin-top: 2rem;
+      background-color: #8A2BE2;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      border-radius: 0.6rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #a86aff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="status-box">
+    <h2>Welcome, <span id="userName">Customer</span>!</h2>
+    <div class="info">People Ahead: <strong id="peopleAhead">2</strong></div>
+    <div class="info">Your Queue Number: <strong id="queueNumber">3</strong></div>
+    <div class="timer">Estimated Wait Time: <span id="estimatedTime">30:00</span></div>
+    <button onclick="goBack()">Back to Home</button>
+  </div>
+
+  <script>
+    let timeLeft = 1800;
+
+    function updateTimer() {
+      const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+      const seconds = String(timeLeft % 60).padStart(2, '0');
+      document.getElementById("estimatedTime").innerText = `${minutes}:${seconds}`;
+
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        document.getElementById("estimatedTime").innerText = "It's your turn!";
+      }
+    }
+
+    setInterval(updateTimer, 1000);
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

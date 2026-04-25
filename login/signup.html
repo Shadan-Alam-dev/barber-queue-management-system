@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup - Barber Queue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('../background/signup_page.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    header {
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .signup-btn {
+      background-color: #ffd700;
+      color: #000;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    .toggle-buttons {
+      margin: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .toggle-buttons button {
+      background: #fff;
+      color: #333;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .toggle-buttons .active {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    .form-container {
+      background: rgba(255,255,255,0.07);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      width: 90%;
+      max-width: 400px;
+      display: none;
+    }
+
+    .form-container.active {
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background-color: #ffd700;
+      color: #000;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    .error {
+      color: #ffbaba;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h3>Barber Queue</h3>
+    <button class="signup-btn" onclick="window.location.href='login.html'">Login</button>
+  </header>
+
+  <h2>Sign Up</h2>
+
+  <div class="toggle-buttons">
+    <button onclick="toggleForm('customer')" id="custBtn" class="active">Customer</button>
+    <button onclick="toggleForm('barber')" id="barberBtn">Barber</button>
+  </div>
+
+  <div class="form-container active" id="customerForm">
+    <form id="custSignup">
+      <input type="text" id="custName" placeholder="Full Name" required />
+      <input type="email" id="custEmail" placeholder="Email" required />
+      <input type="tel" id="custPhone" placeholder="Phone Number" required />
+      <input type="number" id="custAge" placeholder="Age" min="1" required />
+      <select id="custGender" required>
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <div id="custError" class="error"></div>
+      <button class="submit-btn" type="submit">Sign Up as Customer</button>
+    </form>
+  </div>
+
+  <div class="form-container" id="barberForm">
+    <form id="barberSignup">
+      <input type="text" id="salonName" placeholder="Salon Name" required />
+      <textarea id="salonAddress" placeholder="Salon Address" rows="3" required></textarea>
+      <input type="tel" id="salonPhone" placeholder="Phone Number" required />
+      <input type="text" id="workingHours" placeholder="Working Hours" required />
+      <textarea id="servicesOffered" placeholder="Services Offered" rows="2" required></textarea>
+      <div id="barberError" class="error"></div>
+      <button class="submit-btn" type="submit">Sign Up as Barber</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleForm(role) {
+      const custForm = document.getElementById("customerForm");
+      const barberForm = document.getElementById("barberForm");
+      const custBtn = document.getElementById("custBtn");
+      const barberBtn = document.getElementById("barberBtn");
+
+      if (role === 'customer') {
+        custForm.classList.add("active");
+        barberForm.classList.remove("active");
+        custBtn.classList.add("active");
+        barberBtn.classList.remove("active");
+      } else {
+        barberForm.classList.add("active");
+        custForm.classList.remove("active");
+        barberBtn.classList.add("active");
+        custBtn.classList.remove("active");
+      }
+    }
+
+    document.getElementById("custSignup").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("custName").value.trim();
+      const email = document.getElementById("custEmail").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const age = document.getElementById("custAge").value.trim();
+      const gender = document.getElementById("custGender").value.trim();
+
+      if (!name || !email || !phone || !age || !gender || parseInt(age) <= 0) {
+        document.getElementById("custError").textContent = "Fill all fields correctly.";
+        return;
+      }
+
+      const position = Math.floor(Math.random() * 5) + 1;
+      window.location.href = `../queue_status.html?name=${encodeURIComponent(name)}&pos=${position}`;
+    });
+
+    document.getElementById("barberSignup").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const salon = document.getElementById("salonName").value.trim();
+      const address = document.getElementById("salonAddress").value.trim();
+      const phone = document.getElementById("salonPhone").value.trim();
+      const hours = document.getElementById("workingHours").value.trim();
+      const services = document.getElementById("servicesOffered").value.trim();
+
+      if (!salon || !address || !phone || !hours || !services) {
+        document.getElementById("barberError").textContent = "Complete all details.";
+        return;
+      }
+
+      window.location.href = "../barber_dashboard.html";
+    });
+  </script>
+</body>
+</html>

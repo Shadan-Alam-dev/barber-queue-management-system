@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barber Queue App - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      font-size: 16px;
+      --primary-color: #8A2BE2;
+      --text-light: #f8f8ff;
+      --text-subtle: #ddddff;
+      --overlay: rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .hero {
+      background: url("/barber-queue-management-system/background/homapage.png") center/cover no-repeat;
+      height: 100vh;
+      position: relative;
+      color: var(--text-light);
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: var(--overlay);
+      z-index: 1;
+    }
+
+    header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background-color: rgba(25, 0, 50, 0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #c0aaff;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    main {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 1.25rem;
+      opacity: 0;
+      transition: opacity 1.5s ease-in;
+    }
+
+    .fade-in {
+      opacity: 1 !important;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.375rem;
+      color: var(--text-subtle);
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: #a86aff;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 1rem;
+      background-color: rgba(25, 0, 50, 0.7);
+      text-align: center;
+      color: #e0dfff;
+      font-size: 0.875rem;
+      z-index: 2;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        right: 2rem;
+        top: 70px;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      nav a {
+        margin: 0.75rem 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="overlay"></div>
+
+    <header>
+      <div class="logo">BarberQueue</div>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <nav id="navbar">
+        <a href="/barber-queue-management-system/login/login.html">Login</a>
+        <a href="/barber-queue-management-system/login/signup.html">Sign-up</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <h1>Welcome to Barber Queue</h1>
+      <p>Join the queue. Skip the wait. Relax while we notify you!</p>
+      <button onclick="window.location.href='/barber-queue-management-system/login/login.html'">Get Started</button>
+    </main>
+
+    <footer>
+      &copy; 2025 BarberQueue. All rights reserved by Shadan.
+    </footer>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('active');
+    }
+
+    // Fade-in animation
+    window.onload = () => {
+      document.getElementById('main-content').classList.add('fade-in');
+    };
+  </script>
+
+</body>
+</html>
